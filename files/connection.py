@@ -7,4 +7,4 @@ Base = declarative_base()
 load_dotenv()
 
 CONN = environ.get('SQL_CONN')
-engine = create_engine(CONN, echo=True)
+engine = create_engine(CONN)

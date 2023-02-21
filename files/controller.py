@@ -37,3 +37,20 @@ class ControllerGeneral:
     @staticmethod
     def encrypt_password(password):
         return md5(password.encode()).hexdigest()
+
+
+class ControllerCadastro(ControllerGeneral):
+    @classmethod
+    def register_user(cls, name, email, password):
+        if len(name) > 50:
+            return 2
+        elif not super().validate_email(email) or super().check_email_existence(email):
+            return 3
+        elif not super().validade_password(password):
+            return 4
+        else:
+            session = super().return_session()
+            user = Users(nome=name, email=email, senha=super().encrypt_password(password))
+            session.add(user)
+            session.commit()
+            return 1
