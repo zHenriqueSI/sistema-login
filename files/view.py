@@ -1,5 +1,5 @@
 import os
-from controller import ControllerGeneral, ControllerCadastro, ControllerLogin
+from controller import ControllerCadastro, ControllerLogin
 
 while True:
 	print("=" * 15 + " MENU " + "=" * 15)
