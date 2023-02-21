@@ -21,7 +21,12 @@ class ControllerGeneral:
     @classmethod
     def check_email_existence(cls, email):
         session = cls.return_session()
-        email_exists = bool(session.query(Users).filter(email=email).one())
+        try:
+            session.query(Users).filter(Users.email==email).one()
+            return True
+        except Exception:
+            return False
+
 
     @staticmethod
     def validade_password(password):
