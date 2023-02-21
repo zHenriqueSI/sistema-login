@@ -54,3 +54,15 @@ class ControllerCadastro(ControllerGeneral):
             session.add(user)
             session.commit()
             return 1
+
+
+class ControllerLogin(ControllerGeneral):
+    @classmethod
+    def login(cls, email, senha):
+        session = super().return_session()
+        senha_encrypted = super().encrypt_password(senha)
+        try:
+            login_success = session.query(Users).filter_by(email=email, senha=senha_encrypted).one()
+            return login_success.nome
+        except Exception:
+            return False
