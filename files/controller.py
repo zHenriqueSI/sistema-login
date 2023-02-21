@@ -11,28 +11,24 @@ class ControllerGeneral:
         Session = sessionmaker(bind=engine)
         return Session()
 
-
     @staticmethod
     def validate_email(email):
-        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+        regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         return bool(re.match(regex, email))
-
 
     @classmethod
     def check_email_existence(cls, email):
         session = cls.return_session()
         try:
-            session.query(Users).filter(Users.email==email).one()
+            session.query(Users).filter(Users.email == email).one()
             return True
         except Exception:
             return False
 
-
     @staticmethod
     def validade_password(password):
-        regex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$'
-        return bool(re.match(regex, password))   
-
+        regex = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{6,20}$'
+        return bool(re.match(regex, password))
 
     @staticmethod
     def encrypt_password(password):
