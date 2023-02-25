@@ -15,7 +15,7 @@ class Tokens(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'))
     token = Column(String(100))
-    dt_valid = Column(DateTime, default=datetime.datetime.utcnow())
+    login_dt = Column(DateTime(timezone=True))
 
 if __name__ == '__main__':
     Base.metadata.create_all(bind=engine)
