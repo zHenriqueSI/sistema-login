@@ -1,7 +1,5 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Optional
-from datetime import date
 from controller import ControllerCadastro, ControllerLogin
 
 app = FastAPI()
@@ -31,3 +29,13 @@ def register(user: UserRegister):
         return{"error": "the password it is not strong enough"}
     else:
         return{"error": "unknown error"}
+    
+
+@app.post('/login')
+def login(user: UserLogin):
+    print(user.email)
+    login = ControllerLogin.login(user.email, user.password)
+    if login:
+        return {"message": f"user {login} have successfully logged in"}
+    else:
+        return {"message": "email or password is incorrect"}
